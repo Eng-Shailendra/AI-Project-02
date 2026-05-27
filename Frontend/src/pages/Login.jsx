@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { GoEye, GoEyeClosed } from "react-icons/go";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../features/hooks/useAuth.js";
 import LoadingOverlay from "../component/LodingOverlay.jsx";
 
@@ -11,13 +11,15 @@ const Login = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const { loading, handleLogin } = useAuth();
+  const navigate = useNavigate();
 
   const handlechange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    handleLogin(formData);
+    await handleLogin(formData);
+    navigate("/");
   };
 
   return (
