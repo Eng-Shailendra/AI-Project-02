@@ -5,20 +5,20 @@ import Home from "../pages/Home";
 import Protected from "../component/Protected";
 export const router = createBrowserRouter([
   {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-  },
-  {
     path: "/",
     element: (
       <Protected>
         <Home />
       </Protected>
     ),
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
 ]);
 export default router;
