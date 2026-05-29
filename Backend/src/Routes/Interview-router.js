@@ -15,5 +15,8 @@ const interviewRoutre = Router();
  */
 interviewRoutre.post("/", authUser, uploade.single("resume"), controller.generateInterviewController)
 
+interviewRoutre.get("/ai-report", authUser, controller.showAiReprotToUser);
+
+
 
 export default interviewRoutre;

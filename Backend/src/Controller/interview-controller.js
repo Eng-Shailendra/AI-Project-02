@@ -38,3 +38,7 @@ export const generateInterviewController = async (req, res) => {
     }
 
 }
+
+export const showAiReprotToUser = async (req, res) => {
+    
+}

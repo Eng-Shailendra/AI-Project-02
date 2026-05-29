@@ -70,6 +70,7 @@ export async function generateInterViewReport({ resume, selfDescription, jobDesc
         const ai = new GoogleGenAI({
             apiKey: process.env.GEMINI_API_KEY,
         });
+        
         const prompt = `
 You are an expert technical interviewer.
 Analyze the candidate resume and job description.
