@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FiUploadCloud,
   FiFileText,
@@ -7,10 +7,26 @@ import {
   FiCheckCircle,
   FiArrowRight,
 } from "react-icons/fi";
-import {useAuth} from "../features/hooks/useAuth.js"
+import {} from "../features/hooks/useAuth.js";
+import { useInterview } from "../features/hooks/useInterview.js";
 
 const GenerateReport = () => {
+  const { generateInterviewReport } = useInterview();
+  const [formData, setFormData] = useState({
+    selfDescription: "",
+    resume: "",
+    jobDescription: "",
+  });
+
   
+  const handleChanges = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSummit = () => {
+    // generateInterviewReport(formData);
+    console.log(formData);
+  };
   return (
     <div className="min-h-screen  from-black via-zinc-900 to-zinc-950 text-gray-100 flex items-center justify-center px-6 py-10 overflow-hidden">
       <div className="absolute w-72 h-72 bg-emerald-500/10 blur-3xl rounded-full top-10 left-10"></div>
@@ -113,6 +129,8 @@ const GenerateReport = () => {
                 name="jobDescription"
                 id="jobDescription"
                 placeholder="Paste the complete job description here..."
+                value={formData.jobDescription}
+                onChange={handleChanges}
                 className="w-full min-h-28 bg-black/40 border border-zinc-800 rounded-2xl p-5 text-zinc-100 placeholder:text-zinc-500 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-500/10 resize-none transition duration-300"
               ></textarea>
             </div>
@@ -131,6 +149,8 @@ const GenerateReport = () => {
                 name="resume"
                 id="resume"
                 accept=".pdf"
+                value={formData.resume}
+                onChange={handleChanges}
                 className="w-full bg-black/40 border border-zinc-800 rounded-2xl p-4 text-zinc-400 cursor-pointer file:bg-emerald-500 file:border-0 file:text-white file:px-5 file:py-2.5 file:rounded-xl hover:file:bg-emerald-600 transition duration-300"
               />
             </div>
@@ -147,12 +167,17 @@ const GenerateReport = () => {
               <textarea
                 name="selfDescription"
                 id="selfDescription"
+                value={formData.selfDescription}
+                onChange={handleChanges}
                 placeholder="Tell us about your experience, achievements, and career goals..."
                 className="w-full min-h-28 bg-black/40 border border-zinc-800 rounded-2xl p-5 text-zinc-100 placeholder:text-zinc-500 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-500/10 resize-none transition duration-300"
               ></textarea>
             </div>
 
-            <button className="group w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-4 rounded-2xl transition duration-300 shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-3 text-lg">
+            <button
+              onClick={handleSummit}
+              className="group w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-4 rounded-2xl transition duration-300 shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-3 text-lg"
+            >
               Generate Interview Report
               <FiArrowRight className="group-hover:translate-x-1 transition" />
             </button>

@@ -9,11 +9,11 @@ const useInterview = () => {
     const { loading, setLoding, report, setReport, reports, setReports } = context;
 
 
-    const generateInterviewReport = async ({ selfDescription, jobDescription , resume}) => {
+    const generateInterviewReport = async ({ selfDescription, jobDescription, resume }) => {
         try {
             setLoding(true);
-            const resp  = gen 
-
+            const resp = generateInterviewReportApi({ selfDescription, jobDescription, resume });
+            setReport(resp);
         } catch (err) {
             console.log(err);
         } finally {
@@ -22,4 +22,6 @@ const useInterview = () => {
 
 
     }
+    return { loading, report, reports, generateInterviewReport }
 }
+export { useInterview };

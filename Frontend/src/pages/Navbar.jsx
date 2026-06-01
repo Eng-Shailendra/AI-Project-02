@@ -9,6 +9,7 @@ import {
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useAuth } from "../features/hooks/useAuth";
+import Features from "./Features";
 
 const Navbar = () => {
   const { user, handleLogout } = useAuth();
@@ -42,13 +43,13 @@ const Navbar = () => {
               Home
             </Link>
 
-            <a
-              href="#"
+            <Link
+              to={"/features"}
               className="hover:text-emerald-400 transition duration-300"
             >
               Features
-            </a>
-{/* Report */}
+            </Link>
+            {/* Report */}
             <Link
               to={"/report"}
               className="hover:text-emerald-400 transition duration-300"
@@ -56,12 +57,12 @@ const Navbar = () => {
               Reports
             </Link>
 
-            <a
-              href="#"
+            <Link
+              to={"/contact"}
               className="hover:text-emerald-400 transition duration-300"
             >
               Contact
-            </a>
+            </Link>
           </div>
 
           {/* Button */}
@@ -70,7 +71,10 @@ const Navbar = () => {
               Get Started
             </button>
           ) : (
-            <button className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold px-5 py-2.5 rounded-xl transition duration-300 shadow-lg shadow-emerald-500/20" onClick={handleLogout}>
+            <button
+              className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold px-5 py-2.5 rounded-xl transition duration-300 shadow-lg shadow-emerald-500/20"
+              onClick={handleLogout}
+            >
               Logout
             </button>
           )}

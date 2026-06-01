@@ -6,6 +6,11 @@ import Protected from "../component/Protected";
 import Reports from "../pages/Report";
 import Hero from "../pages/Hero";
 import GenerateReport from "../pages/GenerateReport";
+import Contact from "../pages/Contact";
+import Features from "../pages/Features";
+import PreviewCard from "../component/PreviewCard";
+import QuestionList from "../component/QuestionList";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -22,12 +27,24 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Hero />,
+        
       },
       {
         path: "/generate",
         element: <GenerateReport />,
       },
-      
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/features",
+        element: <Features />,
+      },
+      {
+        path: "/demo-report",
+        element: <PreviewCard />,
+      },
     ],
   },
   {
