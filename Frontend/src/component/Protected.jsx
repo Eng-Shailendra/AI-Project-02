@@ -1,20 +1,19 @@
 import React from "react";
 import { useAuth } from "../features/hooks/useAuth.js";
-import { useNavigate } from "react-router-dom";
 import LoadingOverlay from "./LodingOverlay";
+import { Navigate } from "react-router-dom";
 
-const Protected = ({ childern }) => {
-  const { loading, user } = useAuth();
-  const navigate = useNavigate();
-  if (loading)
-    return (
-      <>
-        <LoadingOverlay />
-      </>
-    );
-  if (!user) navigate("/login");
+const Protected = ({ children }) => {
+  const { user, loading } = useAuth();
 
-  return childern;
+  if (loading) {
+    return <LoadingOverlay />;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
 };
 
 export default Protected;

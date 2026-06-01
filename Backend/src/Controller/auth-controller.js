@@ -146,7 +146,7 @@ export const getMeController = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "user detailed fetched successfully",
-            User: {
+            user: {
                 id: user._id,
                 username: user.username,
                 email: user.email

@@ -6,9 +6,8 @@ import { data } from "react-router-dom";
 
 
 export const useAuth = () => {
-    const context = useContext(AuthContext);
-    const { loading, setLoding, user, setUser } = context
 
+    const { loading, setLoding, user, setUser } = useContext(AuthContext);
 
     const handleRegister = async ({ username, email, password }) => {
         try {
@@ -30,21 +29,14 @@ export const useAuth = () => {
         try {
             setLoding(true);
             const data = await loginApi({ email, password })
-
-            if (data.success) {
-                setUser(data.user)
-                setLoding(false)
-            }
+            setUser(data.user)
         } catch (err) {
-            toast(data.message);
+            toast(err.message);
         }
         finally {
-            setTimeout(() => {
-                setLoding(false);
-            }, 2000);
+            setLoding(false);
         }
     }
-
     const handleLogout = async () => {
         try {
             setLoding(true);
@@ -63,8 +55,8 @@ export const useAuth = () => {
 
     const handelGetMe = async () => {
         try {
-            setLoding(true);
-            const data = await getMeApi()
+
+            const data = await getMeApi();
             setUser(data.user)
             setLoding(false)
         } catch (err) {
@@ -77,15 +69,7 @@ export const useAuth = () => {
         }
     }
 
-    useEffect(() => {
-        const getAndSetData = async () => {
-            const data = await getMeApi();
-            setUser(data.user);
-            setLoding(false);
-        };
-        getAndSetData();
-    }, []);
-
+    
     return { user, loading, handleRegister, handleLogin, handleLogout, handelGetMe };
 
 }

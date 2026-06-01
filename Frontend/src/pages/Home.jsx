@@ -1,9 +1,15 @@
 import React from "react";
 
+import Navbar from "./Navbar";
+import { Outlet } from "react-router-dom";
+
 const Home = () => {
   return (
     <>
-      <h1>Home</h1>
+      <Navbar />
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 };

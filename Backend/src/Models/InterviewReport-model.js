@@ -1,18 +1,10 @@
 import mongoose from "mongoose";
 
 /**
- * @ - job description schema
- * resume text 
- * self  descripition
- * 
- * techicinalcle  question :[{
- *              }]
- * beheviral  question
- * skill gap
- * prepration view
+ * @description job description schema
  */
 
-const techinicalQuestionsSchema = new mongoose.Schema({
+const technicalQuestionsSchema = new mongoose.Schema({
     question: {
         type: String,
         require: true
@@ -28,7 +20,7 @@ const techinicalQuestionsSchema = new mongoose.Schema({
 },
     { _id: false })
 
-const beheviralQuestionSchema = new mongoose.Schema({
+const behavioralQuestionSchema = new mongoose.Schema({
     question: {
         type: String,
         require: true
@@ -97,12 +89,10 @@ const interviewReportSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    aiReport: {
-        type: String,
-    }
-
-
-
+    technicalQuestion: [technicalQuestionsSchema],
+    behavioralQuestion: [behavioralQuestionSchema],
+    skillGap: [skillGapSchema],
+    preparationPlan: [preprationPlanScheam],
 }, { timestamps: true })
 
 export const interviewReportModel = mongoose.model("InterviewReport", interviewReportSchema);

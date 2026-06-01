@@ -13,9 +13,12 @@ const interviewRoutre = Router();
  * @description "Use to generate interview report on the basis of user self description resumepdf and job description"
  * @access private
  */
-interviewRoutre.post("/", authUser, uploade.single("resume"), controller.generateInterviewController)
+interviewRoutre.post("/generate-report/:id", authUser, uploade.single("resume"), controller.generateInterviewController)
 
-interviewRoutre.get("/ai-report", authUser, controller.showAiReprotToUser);
+interviewRoutre.get("/ai-report/:id", authUser, controller.showAiReprotToUser);
+
+
+interviewRoutre.get("/all-report/:id", authUser, controller.getAllReportOfUser)
 
 
 
