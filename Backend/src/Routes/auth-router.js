@@ -2,7 +2,6 @@ import { Router } from "express";
 import * as controller from "../Controller/auth-controller.js"
 import authUser from "../Middlewares/auth-middleware.js";
 
-
 const authRouter = Router();
 
 /**
@@ -36,5 +35,12 @@ authRouter.get("/logout", controller.LogoutUserController)
  */
 
 authRouter.get("/get-me", authUser, controller.getMeController)
+
+/**
+ * @route /api/v1/auth/google-signup
+ * @description Signup using google account 
+ * @access public
+ */
+authRouter.get("/google-signup" )
 
 export default authRouter;
