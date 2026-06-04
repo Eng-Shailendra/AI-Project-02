@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./app.css";
+import "./App.css";
 import { RouterProvider } from "react-router-dom";
 
 import { AuthProvider } from "./features/context/auth-context.jsx";
