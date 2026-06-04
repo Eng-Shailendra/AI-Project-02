@@ -2,7 +2,7 @@ import { userModel } from '../Models/user-model.js'
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 import { tokenBlacklistedModel } from '../Models/blackList-model.js';
-import { OAuth2Client } from 'google-auth-library';
+// import { OAuth2Client } from 'google-auth-library';
 
 
 /**
@@ -167,7 +167,7 @@ export const getMeController = async (req, res) => {
  * @description signup user from their google account
  * @access public
  */
-export const googleSignupController = () => {
-    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
+// export const googleSignupController = () => {
+//     const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
-}
+// }

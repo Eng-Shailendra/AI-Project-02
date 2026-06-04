@@ -41,6 +41,6 @@ authRouter.get("/get-me", authUser, controller.getMeController)
  * @description Signup using google account 
  * @access public
  */
-authRouter.get("/google-signup" )
+// authRouter.get("/google-signup" )
 
 export default authRouter;
