@@ -186,7 +186,7 @@ const Report = () => {
 
         <div className="flex items-center gap-6">
           <div className="relative w-28 h-28">
-            <div className="absolute inset-0 rounded-full border-[10px] border-emerald-500"></div>
+            <div className="absolute inset-0 rounded-full border-10 border-emerald-500"></div>
 
             <div className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-emerald-400">
               {report.matchScore}%
