@@ -81,87 +81,45 @@ const Hero = () => {
         </div>
 
         {/* Right Dummy Report */}
+        {/* RIGHT */}
         <div className="relative">
-          <div className="absolute -top-10 -left-10 w-72 h-72 bg-emerald-500/10 blur-3xl rounded-full"></div>
-          {!user && (
-            <div className="relative bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-tl-none p-8 shadow-2xl">
-              {/* Top */}
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <p className="text-zinc-400 text-sm">AI Interview Report</p>
+          <div className="absolute top-20 left-20 w-72 h-72 bg-emerald-500/20 blur-3xl rounded-full" />
 
-                  <h2 className="text-3xl font-bold mt-2">
-                    Frontend Developer
-                  </h2>
-                </div>
+          <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-[0_0_60px_rgba(16,185,129,0.15)]">
+            {/* Floating Cards */}
+            <div className="absolute top-5 right-5 bg-zinc-900 border border-zinc-800 rounded-2xl px-4 py-3">
+              <p className="text-zinc-500 text-sm">Questions</p>
+              <h3 className="text-2xl font-bold text-emerald-400">150+</h3>
+            </div>
 
-                <div className="bg-emerald-500/10 text-emerald-400 px-4 py-2 rounded-2xl font-bold">
-                  92%
-                </div>
+            <div className="absolute bottom-5 left-85 bg-zinc-900 border border-zinc-800 rounded-2xl px-4 py-3">
+              <p className="text-zinc-500 text-sm">Success Rate</p>
+              <h3 className="text-2xl font-bold text-blue-400">92%</h3>
+            </div>
+
+            <div className="flex justify-between items-center mb-8">
+              <div>
+                <p className="text-zinc-500 text-sm">AI Interview Report</p>
+                <h2 className="text-3xl font-bold mt-2">Frontend Developer</h2>
               </div>
 
-              {/* Skills */}
-              <div className="space-y-5 mb-8">
-                <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-zinc-300">React</span>
-                    <span className="text-emerald-400">95%</span>
-                  </div>
-
-                  <div className="w-full h-3 bg-zinc-800 rounded-full overflow-hidden">
-                    <div className="w-[95%] h-full bg-emerald-500 rounded-full"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-zinc-300">JavaScript</span>
-                    <span className="text-blue-400">90%</span>
-                  </div>
-
-                  <div className="w-full h-3 bg-zinc-800 rounded-full overflow-hidden">
-                    <div className="w-[90%] h-full bg-blue-500 rounded-full"></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-zinc-300">Communication</span>
-                    <span className="text-purple-400">85%</span>
-                  </div>
-
-                  <div className="w-full h-3 bg-zinc-800 rounded-full overflow-hidden">
-                    <div className="w-[85%] h-full bg-purple-500 rounded-full"></div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Questions */}
-              <div className="space-y-4">
-                <div className="bg-black/40 border border-zinc-800 rounded-2xl p-4">
-                  <p className="text-sm text-zinc-500 mb-2">
-                    Technical Question
-                  </p>
-
-                  <h3 className="font-medium">Explain React Virtual DOM?</h3>
-                </div>
-
-                <div className="bg-black/40 border border-zinc-800 rounded-2xl p-4">
-                  <p className="text-sm text-zinc-500 mb-2">
-                    Behavioral Question
-                  </p>
-
-                  <h3 className="font-medium">
-                    Tell me about a difficult challenge you solved.
-                  </h3>
-                </div>
+              <div className="bg-emerald-500/10 text-emerald-400 px-4 py-2 rounded-xl font-bold">
+                92%
               </div>
             </div>
-          )}
-          <div className="relative bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-tl-none p-8 shadow-2xl">
-            <QuestionList />
           </div>
         </div>
+      </section>
+
+      {/* sample ai Question */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <h2 className="text-4xl font-bold text-center mb-4">
+          AI Generated Questions
+        </h2>
+        <p className="text-zinc-400 text-center mb-12">
+          Personalized questions based on your resume and target role
+        </p>
+        <QuestionList />
       </section>
     </main>
   );

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "./app.css";
 import { RouterProvider } from "react-router-dom";
-import router from "./routes/app-route.jsx";
-import { AuthProvider } from "./features/auth/auth-context.jsx";
+
+import { AuthProvider } from "./features/context/auth-context.jsx";
 import Toster from "react-hot-toast";
-import InterviewContextProvider from "./features/auth/InterviewContext.jsx";
+import InterviewContextProvider from "./features/context/InterviewContext.jsx";
+import router from "./routes/app-route.jsx";
 
 function App() {
   const [count, setCount] = useState(0);

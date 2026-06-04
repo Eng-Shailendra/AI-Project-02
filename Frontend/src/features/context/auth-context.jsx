@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { createContext } from "react";
-import { getMeApi } from "../services/api-auth";
+import { getMeApi } from "../api/api-auth";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoding] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
       } catch (err) {
         setUser(null);
       } finally {
-        setLoding(false);
+        setLoading(false);
       }
     };
 
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, setLoding }}>
+    <AuthContext.Provider value={{ user, setUser, loading, setLoading }}>
       {children}
     </AuthContext.Provider>
   );

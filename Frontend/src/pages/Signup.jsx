@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { registerApi } from "../features/services/api-auth.js";
+import { registerApi } from "../features/api/api-auth.js";
 import LoadingOverlay from "../component/LodingOverlay.jsx";
 import { useAuth } from "../features/hooks/useAuth.js";
 import toast from "react-hot-toast";

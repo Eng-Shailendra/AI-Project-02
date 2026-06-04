@@ -1,5 +1,5 @@
-import { GoogleGenAI } from "@google/genai";
-import z from "zod";
+import { GoogleGenAI, Type } from "@google/genai";
+import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
 export async function generateInterViewReport({ resume, selfDescription, jobDescription }) {
@@ -8,8 +8,10 @@ export async function generateInterViewReport({ resume, selfDescription, jobDesc
             apiKey: process.env.GEMINI_API_KEY,
         });
 
-        // 1. Defined Schema matching your desired exact structure
+        //! zod schema is not working properly with gemini response, need to check it later
+        // // 1. Defined Schema matching your desired exact structure
         const interviewReportSchema = z.object({
+            title: z.string().describe("Title of the interview report"),
             matchScore: z
                 .number()
                 .min(0)
@@ -43,48 +45,107 @@ export async function generateInterViewReport({ resume, selfDescription, jobDesc
             preparationPlan: z
                 .array(
                     z.object({
-                        day: z.number(),
-                        focus: z.string(),
-                        task: z.array(z.string()),
+                        day: z.number().describe("Day number in the preparation plan"),
+                        focus: z.string().describe("Main focus area for the day"),
+                        task: z.array(z.string().describe("Specific tasks or activities to be done on this day")),
                     })
                 )
                 .describe("A day-wise preparation plan for the candidate to improve and perform well in interview"),
         });
 
-        // Clean data inputs to prevent [object Object] errors stringifying the text
-        const cleanResume = typeof resume === "object" ? JSON.stringify(resume) : resume;
-        const cleanSelfDescription = typeof selfDescription === "object" ? JSON.stringify(selfDescription) : selfDescription;
-        const cleanJobDescription = typeof jobDescription === "object" ? JSON.stringify(jobDescription) : jobDescription;
-
-        const prompt = `
-      Analyze the candidate's profile based on the provided resume, self-description, and job description.
-      Generate a comprehensive interview report matching the schema.
-
-      Resume: ${cleanResume}
-      Self Description: ${cleanSelfDescription}
-      Job Description: ${cleanJobDescription}
-    `;
-
-        // 2. Fixed Request Configuration payload matching modern SDK standards
-        const resp = await ai.models.generateContent({
-            model: "gemini-1.5-pro",
-            contents: prompt,
-            config: {
-                responseMimeType: "application/json",
-                responseSchema: zodToJsonSchema(interviewReportSchema),
+        const geminiResponseSchema = {
+            type: Type.OBJECT,
+            properties: {
+                title: { type: Type.STRING, description: "Title of the interview report" },
+                matchScore: {
+                    type: Type.INTEGER,
+                    description: "A score from 0 to 100 indicating profile fit."
+                },
+                technicalQuestions: {
+                    type: Type.ARRAY,
+                    items: {
+                        type: Type.OBJECT,
+                        properties: {
+                            question: { type: Type.STRING, description: "Technical question for the interview" },
+                            intention: { type: Type.STRING, description: "Why interviewer asks this question" },
+                            answer: { type: Type.STRING, description: "How to answer this question with important points" }
+                        },
+                        required: ["question", "intention", "answer"]
+                    }
+                },
+                behavioralQuestions: {
+                    type: Type.ARRAY,
+                    items: {
+                        type: Type.OBJECT,
+                        properties: {
+                            question: { type: Type.STRING, description: "Behavioral question for the interview" },
+                            intention: { type: Type.STRING, description: "Why interviewer asks this question" },
+                            answer: { type: Type.STRING, description: "How to answer this question using proper approach" }
+                        },
+                        required: ["question", "intention", "answer"]
+                    }
+                },
+                skillGap: {
+                    type: Type.ARRAY,
+                    items: {
+                        type: Type.OBJECT,
+                        properties: {
+                            skill: { type: Type.STRING, description: "Skill candidate is lacking" },
+                            severity: { type: Type.STRING, enum: ["low", "medium", "high"] },
+                            improvementPlan: { type: Type.STRING, description: "How candidate can improve" }
+                        },
+                        required: ["skill", "severity", "improvementPlan"]
+                    }
+                },
+                preparationPlan: {
+                    type: Type.ARRAY,
+                    items: {
+                        type: Type.OBJECT,
+                        properties: {
+                            day: { type: Type.INTEGER, description: "Day number" },
+                            focus: { type: Type.STRING, description: "Main focus area" },
+                            task: {
+                                type: Type.ARRAY,
+                                items: { type: Type.STRING },
+                                description: "Specific activities to perform on this day"
+                            }
+                        },
+                        required: ["day", "focus", "task"]
+                    }
+                }
             },
-        });
+            required: ["matchScore", "technicalQuestions", "behavioralQuestions", "skillGap", "preparationPlan"]
+        };
 
-        console.log("Raw AI Response:", resp.text);
+        // FIXED: Swapped prompt interpolation to correct variable positions
+        const prompt = `
+          Analyze the candidate based on the provided self-description, job description, and resume.
+          Generate a comprehensive interview report matching the schema.
+          Self Description: ${selfDescription}
+          Job Description: ${jobDescription}
+          Resume: ${resume.text}
+        `;
 
-        // 3. Safe Parsing of Response Object
-        const result = interviewReportSchema.parse(JSON.parse(resp.text));
-        console.log("AI Response:", result);
-
-        return result;
+        // ! fallback response for testing without hitting api rate litmit
+        // FIXED: Configuration payload corrected for modern @google/genai SDK standards
+        try {
+            const resp = await ai.models.generateContent({
+                model: "gemini-2.5-flash",
+                contents: prompt,
+                config: {
+                    responseMimeType: "application/json",
+                    responseSchema: geminiResponseSchema,
+                },
+            });
+            // 3. Safe Parsing of Response Object
+            const result = interviewReportSchema.parse(JSON.parse(resp.text));
+            return result;
+        } catch (err) {
+            throw new Error(`Error generating interview report: ${err.message}`);
+        }
 
     } catch (err) {
         console.error("Error executing report generation:", err.message);
-        throw err;
+        throw err; // Re-throw to be handled by controller
     }
 }

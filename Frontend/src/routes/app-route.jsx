@@ -10,6 +10,7 @@ import Contact from "../pages/Contact";
 import Features from "../pages/Features";
 import PreviewCard from "../component/PreviewCard";
 import QuestionList from "../component/QuestionList";
+import ReportsList from "../pages/ReportsList";
 
 export const router = createBrowserRouter([
   {
@@ -21,17 +22,20 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/report",
-        element: <Reports />,
-      },
-      {
         index: true,
         element: <Hero />,
-        
       },
       {
         path: "/generate",
         element: <GenerateReport />,
+      },
+      {
+        path: "/ai-report/:id",
+        element: <Reports />,
+      },
+      {
+        path: "/all-ai-report",
+        element: <ReportsList />,
       },
       {
         path: "/contact",
@@ -43,7 +47,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/demo-report",
-        element: <PreviewCard />,
+        element: <Reports />,
       },
     ],
   },

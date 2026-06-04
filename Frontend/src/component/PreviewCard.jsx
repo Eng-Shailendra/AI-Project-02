@@ -12,7 +12,7 @@ const PreviewCard = () => {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl h-[580px] text-black p-8 overflow-auto">
+      <div className="bg-gray-600 rounded-2xl h-[580px] text-black p-8 overflow-auto">
         <h1 className="text-3xl font-bold mb-6">Interview Analysis Report</h1>
 
         <p className="mb-4">Candidate: Suraj Sahu</p>

@@ -51,7 +51,7 @@ const Navbar = () => {
             </Link>
             {/* Report */}
             <Link
-              to={"/report"}
+              to={"/all-ai-report"}
               className="hover:text-emerald-400 transition duration-300"
             >
               Reports

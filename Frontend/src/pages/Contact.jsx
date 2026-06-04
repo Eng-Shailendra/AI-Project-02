@@ -7,8 +7,23 @@ import {
   FiMessageSquare,
   FiHelpCircle,
 } from "react-icons/fi";
+import { useAuth } from "../features/hooks/useAuth";
+import { useRef } from "react";
+import { sendmessageapi } from "../features/api/api-contact";
+import { Navigate } from "react-router-dom";
 
 const Contact = () => {
+  const { user } = useAuth();
+  const messageRef = useRef();
+  const handleSendMessage = (e) => {
+    e.stopPropagation();
+    const messageData = {
+      fullname: user.username,
+      email: user.email,
+      message: messageRef.current.value,
+    };
+  };
+
   return (
     <main className="min-h-screen  from-black via-zinc-900 to-zinc-950 text-white">
       <div className="max-w-7xl mx-auto px-6 py-20">
@@ -40,7 +55,7 @@ const Contact = () => {
 
                 <div>
                   <h3 className="font-bold text-xl">Email Support</h3>
-                  <p className="text-zinc-400">support@interviewai.com</p>
+                  <p className="text-zinc-400">shailendra2130@gmail.com</p>
                 </div>
               </div>
             </div>
@@ -65,14 +80,14 @@ const Contact = () => {
 
               <div className="flex gap-4">
                 <a
-                  href="#"
+                  href="https://github.com/Eng-Shailendra"
                   className="p-4 rounded-2xl bg-zinc-800 hover:bg-zinc-700 transition"
                 >
                   <FiGithub size={22} />
                 </a>
 
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/shailendra-sahu-186468220/?trk=public-profile-join-page"
                   className="p-4 rounded-2xl bg-zinc-800 hover:bg-zinc-700 transition"
                 >
                   <FiLinkedin size={22} />
@@ -93,6 +108,7 @@ const Contact = () => {
                   type="text"
                   placeholder="John Doe"
                   className="w-full bg-black/40 border border-zinc-800 rounded-2xl px-4 py-4 outline-none focus:border-emerald-500"
+                  value={user.username}
                 />
               </div>
 
@@ -105,6 +121,7 @@ const Contact = () => {
                   type="email"
                   placeholder="john@example.com"
                   className="w-full bg-black/40 border border-zinc-800 rounded-2xl px-4 py-4 outline-none focus:border-emerald-500"
+                  value={user.email}
                 />
               </div>
 
@@ -115,12 +132,14 @@ const Contact = () => {
                   rows="6"
                   placeholder="Write your message..."
                   className="w-full bg-black/40 border border-zinc-800 rounded-2xl px-4 py-4 outline-none focus:border-emerald-500 resize-none"
+                  ref={messageRef}
                 />
               </div>
 
               <button
-                type="submit"
-                className="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-semibold py-4 rounded-2xl transition flex items-center justify-center gap-3"
+                type="button"
+                className="w-full bg-emerald-500  hover:bg-emerald-600 text-black font-semibold py-4 rounded-2xl transition flex items-center justify-center gap-3"
+                onClick={handleSendMessage}
               >
                 <FiSend />
                 Send Message
