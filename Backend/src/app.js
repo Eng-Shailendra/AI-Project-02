@@ -7,7 +7,7 @@ import interviewRoutre from "./Routes/Interview-router.js";
 import contactRouter from "./Routes/contact-router.js";
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
     credentials: true
 }))
 app.use(express.json());
